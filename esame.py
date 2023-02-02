@@ -60,7 +60,3 @@ def compute_daily_max_difference(time_series):
     else:
         valori_finali.append(max(list) - min(list))
     return valori_finali
-            
-time_series_file = CSVTimeSeriesFile(name = "data.csv")
-time_series = time_series_file.get_data()
-print(compute_daily_max_difference(time_series))
