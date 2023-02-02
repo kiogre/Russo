@@ -40,8 +40,6 @@ class CSVTimeSeriesFile():
 def compute_daily_max_difference(time_series):
     if len(time_series) == 0:
         return []
-    if len(time_series) == 1:
-        return [None]
     current_day = time_series[0][0] - (time_series[0][0] % 86400)
     list=[]
     valori_finali = []
