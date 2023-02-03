@@ -31,6 +31,7 @@ class CSVTimeSeriesFile():
                 
                 continue
             if  last_time >= int(float(tmp[0])):
+                #Controllo se ci sono dati inseriti male temporalmente
                 raise ExamException("Errore, dati inseriti male")
             last_time = int(float(tmp[0]))
         file.close()
@@ -45,14 +46,19 @@ def compute_daily_max_difference(time_series):
     valori_finali = []
     for line in time_series:
         if (line[0] - (line[0] % 86400)) == current_day:
+            #Tutti i numeri che vengono inseriti in questa lista appartengono alla stessa giornata
             list.append(line[1])
         else:
+            #Se si cambia la giornata, dico qual è la nuova giornata e poi calcolo la differenza massima
             current_day = line[0] - (line[0] % 86400)
             if len(list) == 1:
+                #Se esiste solo una misurazione per quella giornata allora non si può calcolare la differenza massima
                 valori_finali.append(None)
             else:
                 valori_finali.append(max(list) - min(list))
+            #Devo aggiungere il nuovo elemento della giornata
             list = [line[1]]
+    #Devo calcolare la differenza massima dell'ultima giornata
     if len(list) == 1:
         valori_finali.append(None)
     else:
